@@ -1,0 +1,15 @@
+{
+  "name": "iPayX Production",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "https://ggkymbeyesuodnoogzyb.supabase.co/functions/v1",
+      "enabled": true
+    },
+    {
+      "key": "apiToken",
+      "value": "ipx_live_YOUR_API_KEY_HERE",
+      "enabled": true
+    }
+  ]
+}

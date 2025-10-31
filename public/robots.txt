@@ -1,0 +1,31 @@
+# iPayX Protocol - Production Robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /keys
+Disallow: /profile
+Disallow: /update-password
+Disallow: /enable-2fa
+Disallow: /meta-router
+Disallow: /test-e2e
+
+# Sitemap
+Sitemap: https://ipayx.ai/sitemap.xml
+
+# Crawl-delay for specific bots
+User-agent: Googlebot
+Crawl-delay: 0
+
+User-agent: Bingbot
+Crawl-delay: 1
+
+# Block specific bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /

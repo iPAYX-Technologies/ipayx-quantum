@@ -1,0 +1,134 @@
+{
+  "info": {
+    "name": "iPayX API v1",
+    "description": "Fiat-to-Fiat routing via Circle/Coinbase/Stellar/Tron/Hedera",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1234567"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Quotes",
+      "item": [
+        {
+          "name": "Create Quote",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"USD\",\n  \"to\": \"CAD\",\n  \"amount\": 100000,\n  \"kyc\": \"light\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/quotes",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "quotes"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Execute Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"route_id\": \"rt_89x\",\n  \"source_account\": \"acct_src_123\",\n  \"destination_account\": \"acct_dst_456\",\n  \"idempotency_key\": \"idem_001\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/v1/execute",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "execute"]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Status",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/v1/payments/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["v1", "payments", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "pay_123"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Metrics",
+      "item": [
+        {
+          "name": "Volume 24h",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/metrics/volume24h"
+          }
+        },
+        {
+          "name": "Active Routes",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/metrics/activeRoutes"
+          }
+        },
+        {
+          "name": "Onramps",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/metrics/onramps"
+          }
+        },
+        {
+          "name": "Avg FX Spread",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/metrics/avgFxSpread"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Status",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/v1/status"
+          }
+        }
+      ]
+    }
+  ]
+}

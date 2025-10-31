@@ -1,0 +1,160 @@
+project_id = "ggkymbeyesuodnoogzyb"
+
+[functions.ai-audit]
+verify_jwt = true
+
+[functions.launch-test-campaign]
+verify_jwt = true
+
+[functions.bulk-import-and-send]
+verify_jwt = true
+
+[functions.payment-simulator]
+verify_jwt = true
+
+[functions.eliza-orchestrator]
+verify_jwt = true
+
+[functions.email-auto-responder]
+verify_jwt = false
+
+[functions.chatbot]
+verify_jwt = false
+
+[functions.proxy-github]
+verify_jwt = false
+
+[functions.quote]
+verify_jwt = false
+
+[functions.transfer]
+verify_jwt = false
+
+[functions.chainlink-prices]
+verify_jwt = false
+
+[functions.smart-contact]
+verify_jwt = false
+
+[functions.contact-v2]
+verify_jwt = false
+
+[functions.test-email]
+verify_jwt = true
+
+[functions.notify-new-signup]
+verify_jwt = false
+
+[functions.submit-lead]
+verify_jwt = false
+
+[functions.send-client-results]
+verify_jwt = false
+
+[functions.fees]
+verify_jwt = false
+
+[functions.instant-payment]
+verify_jwt = true
+
+[functions.welcome-email]
+verify_jwt = false
+
+[functions.ai-marketing]
+verify_jwt = true
+
+[functions.ai-it]
+verify_jwt = true
+
+[functions.eliza-orchestrator]
+verify_jwt = false
+
+[functions.messari-logos]
+verify_jwt = false
+
+[functions.coinbase-checkout]
+verify_jwt = true
+
+[functions.coinbase-webhook]
+verify_jwt = false
+
+[functions.circle-payment]
+verify_jwt = true
+
+[functions.transak-webhook]
+verify_jwt = false
+
+[functions.kyc-webhook]
+verify_jwt = false
+
+[functions.payment-simulator]
+verify_jwt = false
+
+[functions.meta-router]
+verify_jwt = false
+
+[functions.meta-router-passthrough]
+verify_jwt = false
+
+[functions.oracle]
+verify_jwt = false
+
+[functions.stellar-transfer]
+verify_jwt = false
+
+[functions.xrpl-transfer]
+verify_jwt = false
+
+[functions.metrics]
+verify_jwt = false
+
+[functions.status]
+verify_jwt = false
+
+[functions.messari-prices]
+verify_jwt = false
+
+[functions.crypto-prices]
+verify_jwt = false
+
+[functions.send-ipayx-fee]
+verify_jwt = true
+
+[functions.verify-2fa]
+verify_jwt = false
+
+[functions.test-email-flows]
+verify_jwt = true
+
+[functions.campaign-manager]
+verify_jwt = true
+
+[functions.sendgrid-webhook]
+verify_jwt = false
+
+[functions.auto-followup]
+verify_jwt = false
+
+[functions.test-heygen]
+verify_jwt = true
+
+[functions.launch-test-campaign]
+verify_jwt = false
+
+[functions.list-heygen-avatars]
+verify_jwt = false
+
+[functions.generate-hero-video]
+verify_jwt = true
+
+[functions.perplexity-search]
+verify_jwt = false
+
+[functions.stripe-checkout]
+verify_jwt = true
+
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.metamask-payment]
+verify_jwt = true

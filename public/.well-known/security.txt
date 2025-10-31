@@ -1,0 +1,9 @@
+Contact: mailto:security@ipayx.ai
+Expires: 2026-12-31T23:59:59Z
+Preferred-Languages: en, fr
+Canonical: https://ipayx.ai/.well-known/security.txt
+Policy: https://ipayx.ai/security-policy
+Acknowledgments: https://ipayx.ai/security-acknowledgments
+
+# iPayX Security Disclosure
+# We take security seriously. Please report vulnerabilities responsibly.

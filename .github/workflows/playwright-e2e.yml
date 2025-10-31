@@ -1,0 +1,62 @@
+# Playwright E2E workflow: builds the app, starts it, waits for localhost:3000, then runs Playwright tests.
+# Trigger: on pull_request and push to feature branches (adjust branches as needed).
+name: Playwright E2E Tests
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - 'feature/*'
+      - 'main'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: playwright-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js app
+        run: npm run build
+
+      - name: Start Next.js (background)
+        run: |
+          # Start the production server in background
+          npm run start &>/tmp/next-start.log &
+          echo "Waiting for http://localhost:3000 to be ready..."
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000 --timeout 60000
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        env:
+          CI: true
+        run: npx playwright test --reporter=github
+
+      - name: Upload Playwright report (if any)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report || ./playwright-report
+

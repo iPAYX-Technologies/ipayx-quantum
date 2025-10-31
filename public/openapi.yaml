@@ -1,0 +1,275 @@
+openapi: 3.0.0
+info:
+  title: iPayX API
+  version: v1
+  description: Fiat-to-Fiat routing via Circle/Coinbase/Stellar/Tron/Hedera. Smart routing + 0.7% fixed.
+
+servers:
+  - url: https://api.ipayx.ai
+    description: Production
+
+paths:
+  /v1/quotes:
+    post:
+      summary: Create a FX/payment route quote
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuoteRequest'
+            examples:
+              basic:
+                value:
+                  from: USD
+                  to: CAD
+                  amount: 100000
+                  kyc: light
+      responses:
+        '200':
+          description: Quote created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuoteResponse'
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+
+  /v1/execute:
+    post:
+      summary: Execute a routed payment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteRequest'
+            examples:
+              basic:
+                value:
+                  route_id: rt_89x
+                  source_account: acct_src_123
+                  destination_account: acct_dst_456
+                  idempotency_key: idem_001
+      responses:
+        '200':
+          description: Payment accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+
+  /v1/payments/{id}:
+    get:
+      summary: Retrieve payment status
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: payment_id
+      responses:
+        '200':
+          description: Payment object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+        '404':
+          description: Not found
+
+  /v1/metrics/volume24h:
+    get:
+      summary: Aggregated volume past 24h
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: number
+
+  /v1/metrics/activeRoutes:
+    get:
+      summary: Active corridors count
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: integer
+
+  /v1/metrics/onramps:
+    get:
+      summary: On-ramp providers aggregated
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  value:
+                    type: integer
+
+  /v1/metrics/avgFxSpread:
+    get:
+      summary: Average FX spread (bps) rolling 24h
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bps:
+                    type: number
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Use your API key as Bearer token
+
+  schemas:
+    QuoteRequest:
+      type: object
+      required:
+        - from
+        - to
+        - amount
+      properties:
+        from:
+          type: string
+          example: USD
+          description: Source currency
+        to:
+          type: string
+          example: CAD
+          description: Destination currency
+        amount:
+          type: number
+          example: 100000
+          description: Amount in source currency
+        kyc:
+          type: string
+          enum:
+            - none
+            - light
+            - full
+          default: light
+          description: KYC level required
+
+    Route:
+      type: object
+      properties:
+        rail:
+          type: string
+          enum:
+            - circle
+            - coinbase
+            - stellar
+            - tron
+            - hedera
+          description: Payment rail used
+        fees:
+          type: object
+          properties:
+            routing:
+              type: number
+              description: Routing fee percentage
+            network:
+              type: number
+              description: Network fee in USD
+        eta:
+          type: string
+          example: T+0
+          description: Settlement time
+        route_id:
+          type: string
+          description: Unique route identifier
+
+    QuoteResponse:
+      type: object
+      properties:
+        route:
+          $ref: '#/components/schemas/Route'
+        fx:
+          type: object
+          properties:
+            rate:
+              type: number
+              description: Exchange rate
+            spread_bps:
+              type: number
+              description: Spread in basis points
+
+    ExecuteRequest:
+      type: object
+      required:
+        - route_id
+        - source_account
+        - destination_account
+      properties:
+        route_id:
+          type: string
+          description: Route ID from quote
+        source_account:
+          type: string
+          description: Source account identifier
+        destination_account:
+          type: string
+          description: Destination account identifier
+        idempotency_key:
+          type: string
+          description: Optional idempotency key for retries
+
+    Payment:
+      type: object
+      properties:
+        payment_id:
+          type: string
+          description: Unique payment identifier
+        status:
+          type: string
+          enum:
+            - pending
+            - succeeded
+            - failed
+          description: Payment status
+        rail:
+          type: string
+          description: Rail used for payment
+        amount:
+          type: number
+          description: Payment amount
+        currency:
+          type: string
+          description: Payment currency
+        executed_at:
+          type: string
+          format: date-time
+          description: Execution timestamp

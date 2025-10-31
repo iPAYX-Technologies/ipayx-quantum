@@ -1,0 +1,21 @@
+{
+  "event": "payment.succeeded",
+  "timestamp": 1697123456789,
+  "data": {
+    "payment_id": "pay_abc123",
+    "route_id": "rt_89x",
+    "rail": "stellar",
+    "status": "succeeded",
+    "amount": 100000,
+    "currency": "CAD",
+    "source_account": "acct_src_123",
+    "destination_account": "acct_dst_456",
+    "fees": {
+      "routing": 700,
+      "network": 15
+    },
+    "settled_at": "2025-10-16T18:45:00Z",
+    "transaction_hash": "0xabc123def456..."
+  },
+  "signature": "hmac_sha256_signature_here"
+}

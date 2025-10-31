@@ -1,0 +1,19 @@
+<svg width="180" height="60" viewBox="0 0 180 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cercle -->
+  <circle cx="30" cy="30" r="20" stroke="#33B5E5" stroke-width="3" fill="none" />
+
+  <!-- Texte IPX au centre du cercle -->
+  <text x="30" y="34" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#FFFFFF">
+    IPX
+  </text>
+
+  <!-- Texte principal iPayX -->
+  <text x="65" y="28" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#FFFFFF">
+    iPayX
+  </text>
+
+  <!-- Sous-texte QUANTUM RAIL -->
+  <text x="65" y="46" font-family="Arial, Helvetica, sans-serif" font-size="10" letter-spacing="1.5" fill="#33B5E5">
+    QUANTUM RAIL
+  </text>
+</svg>

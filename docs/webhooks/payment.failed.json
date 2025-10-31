@@ -1,0 +1,20 @@
+{
+  "event": "payment.failed",
+  "timestamp": 1697123456789,
+  "data": {
+    "payment_id": "pay_def456",
+    "route_id": "rt_90y",
+    "rail": "circle",
+    "status": "failed",
+    "amount": 50000,
+    "currency": "EUR",
+    "source_account": "acct_src_789",
+    "destination_account": "acct_dst_012",
+    "error": {
+      "code": "INSUFFICIENT_LIQUIDITY",
+      "message": "Insufficient liquidity on route"
+    },
+    "failed_at": "2025-10-16T18:50:00Z"
+  },
+  "signature": "hmac_sha256_signature_here"
+}

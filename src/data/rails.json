@@ -1,0 +1,12 @@
+[
+  {"name":"Provider Rail Alpha","type":"kyc","baseFeePct":0.70,"latencyMin":3,"liq":10,"vol":0.05,"provider":"provider-a","asset":"USDC"},
+  {"name":"Provider Rail Beta","type":"nkyc","baseFeePct":0.50,"latencyMin":2,"liq":9,"vol":0.08,"provider":"provider-a","asset":"USDC"},
+  {"name":"Provider Rail Gamma","type":"nkyc","baseFeePct":0.60,"latencyMin":2,"liq":9,"vol":0.10,"provider":"provider-a","asset":"USDT"},
+  {"name":"Settlement Rail X","type":"nkyc","baseFeePct":0.35,"latencyMin":1,"liq":8,"vol":0.12,"provider":"provider-b","asset":"USDC"},
+  {"name":"Fast Rail Z","type":"nkyc","baseFeePct":0.25,"latencyMin":1,"liq":7,"vol":0.15,"provider":"provider-c","asset":"USDC"},
+  {"name":"Chainlink CCIP","type":"nkyc","baseFeePct":0.15,"latencyMin":5,"liq":10,"vol":0.20,"provider":"chainlink-ccip","asset":"USDC"},
+  {"name":"Traditional Rail A","type":"kyc","baseFeePct":0.90,"latencyMin":10,"liq":9,"vol":0.1,"provider":"traditional","asset":"USD"},
+  {"name":"Traditional Rail B","type":"kyc","baseFeePct":1.10,"latencyMin":12,"liq":9,"vol":0.2,"provider":"traditional","asset":"USD"},
+  {"name":"Traditional Rail C","type":"nkyc","baseFeePct":0.80,"latencyMin":8,"liq":8,"vol":0.3,"provider":"traditional","asset":"USDT"},
+  {"name":"Traditional Rail D","type":"nkyc","baseFeePct":0.60,"latencyMin":6,"liq":9,"vol":0.4,"provider":"traditional","asset":"USDC"}
+]

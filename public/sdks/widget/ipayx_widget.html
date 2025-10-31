@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iPayX Widget</title>
+  <style>
+    .ipayx-widget {
+      max-width: 400px;
+      margin: 0 auto;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .ipayx-form-group {
+      margin-bottom: 1rem;
+    }
+    .ipayx-label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+    .ipayx-input,
+    .ipayx-select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .ipayx-button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .ipayx-button:hover {
+      background: #333;
+    }
+    .ipayx-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .ipayx-results {
+      margin-top: 1.5rem;
+    }
+    .ipayx-route {
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+    }
+    .ipayx-route-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .ipayx-route-details {
+      font-size: 0.875rem;
+      color: #666;
+    }
+    .ipayx-error {
+      padding: 1rem;
+      background: #fee;
+      border: 1px solid #fcc;
+      border-radius: 4px;
+      color: #c00;
+    }
+  </style>
+</head>
+<body>
+  <div class="ipayx-widget" id="ipayx-widget">
+    <form id="ipayx-form">
+      <div class="ipayx-form-group">
+        <label class="ipayx-label" for="from-currency">From Currency</label>
+        <select class="ipayx-select" id="from-currency" required>
+          <option value="USD">USD - US Dollar</option>
+          <option value="CAD">CAD - Canadian Dollar</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="GBP">GBP - British Pound</option>
+          <option value="INR">INR - Indian Rupee</option>
+          <option value="MXN">MXN - Mexican Peso</option>
+          <option value="BRL">BRL - Brazilian Real</option>
+        </select>
+      </div>
+
+      <div class="ipayx-form-group">
+        <label class="ipayx-label" for="to-currency">To Currency</label>
+        <select class="ipayx-select" id="to-currency" required>
+          <option value="CAD">CAD - Canadian Dollar</option>
+          <option value="USD">USD - US Dollar</option>
+          <option value="EUR">EUR - Euro</option>
+          <option value="GBP">GBP - British Pound</option>
+          <option value="INR">INR - Indian Rupee</option>
+          <option value="MXN">MXN - Mexican Peso</option>
+          <option value="BRL">BRL - Brazilian Real</option>
+        </select>
+      </div>
+
+      <div class="ipayx-form-group">
+        <label class="ipayx-label" for="amount">Amount</label>
+        <input 
+          class="ipayx-input" 
+          type="number" 
+          id="amount" 
+          min="0" 
+          step="0.01" 
+          placeholder="10000" 
+          required
+        />
+      </div>
+
+      <div class="ipayx-form-group">
+        <label class="ipayx-label">
+          <input type="checkbox" id="kyc" /> KYC Required
+        </label>
+      </div>
+
+      <button type="submit" class="ipayx-button" id="submit-btn">
+        Get Quote
+      </button>
+    </form>
+
+    <div id="ipayx-results" class="ipayx-results" style="display: none;"></div>
+  </div>
+
+  <script>
+    (function() {
+      const API_BASE = window.IPAYX_API_URL || 'https://api.ipayx.ai';
+      const API_KEY = window.IPAYX_TOKEN;
+
+      if (!API_KEY) {
+        console.error('iPayX Widget: IPAYX_TOKEN not set');
+      }
+
+      const form = document.getElementById('ipayx-form');
+      const resultsDiv = document.getElementById('ipayx-results');
+      const submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        if (!API_KEY) {
+          showError('API token not configured. Please set window.IPAYX_TOKEN');
+          return;
+        }
+
+        const fromCurrency = document.getElementById('from-currency').value;
+        const toCurrency = document.getElementById('to-currency').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+        const kyc = document.getElementById('kyc').checked;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Loading...';
+        resultsDiv.style.display = 'none';
+
+        try {
+          const response = await fetch(`${API_BASE}/v1/quotes`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: fromCurrency,
+              to: toCurrency,
+              amount,
+              kyc,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+          }
+
+          const data = await response.json();
+          showResults(data);
+        } catch (error) {
+          showError(error.message);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Get Quote';
+        }
+      });
+
+      function showResults(data) {
+        const html = `
+          <h3>Top Routes for ${data.corridor}</h3>
+          ${data.routes.map((route, i) => `
+            <div class="ipayx-route">
+              <div class="ipayx-route-header">
+                <span>${i + 1}. ${route.rail}</span>
+                <span>Score: ${route.score}</span>
+              </div>
+              <div class="ipayx-route-details">
+                Fee: ${(route.feePct * 100).toFixed(2)}% | 
+                ETA: ${route.etaMin} min | 
+                FX: ${route.quoteFX} (spread: ${route.fxSpread})
+              </div>
+            </div>
+          `).join('')}
+        `;
+
+        resultsDiv.innerHTML = html;
+        resultsDiv.style.display = 'block';
+      }
+
+      function showError(message) {
+        resultsDiv.innerHTML = `
+          <div class="ipayx-error">
+            Error: ${message}
+          </div>
+        `;
+        resultsDiv.style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>

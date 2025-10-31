@@ -1,0 +1,8 @@
+[
+  {"id":"chicago-malaysia","from":"USD","to":"MYR","amount":100000,"oracle":{"ref":4.47},"type":"fiat-to-digital","description":"Chicago to Malaysia - Fiat to Stablecoin"},
+  {"id":"nigeria-canada","from":"NGN","to":"CAD","amount":250000,"oracle":{"ref":0.0018},"type":"digital-rampoff","description":"Nigeria to Montreal - Digital Rampoff to Fiat"},
+  {"id":"cad-usd","from":"CAD","to":"USD","amount":50000,"oracle":{"ref":0.74}},
+  {"id":"usd-inr","from":"USD","to":"INR","amount":10000,"oracle":{"ref":83.12}},
+  {"id":"usd-mxn","from":"USD","to":"MXN","amount":10000,"oracle":{"ref":17.12}},
+  {"id":"eur-brl","from":"EUR","to":"BRL","amount":25000,"oracle":{"ref":5.53}}
+]

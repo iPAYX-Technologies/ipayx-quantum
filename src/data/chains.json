@@ -1,0 +1,122 @@
+[
+  {
+    "id": "arbitrum",
+    "name": "Arbitrum",
+    "symbol": "ARB",
+    "type": "EVM L2",
+    "transferFee": 0.10,
+    "confirmation": "1s",
+    "throughput": 4000,
+    "stablecoins": ["USDT", "USDC"],
+    "color": "#28A0F0",
+    "icon": "⬡"
+  },
+  {
+    "id": "avalanche",
+    "name": "Avalanche C-Chain",
+    "symbol": "AVAX",
+    "type": "EVM",
+    "transferFee": 0.15,
+    "confirmation": "2s",
+    "throughput": 4500,
+    "stablecoins": ["USDT", "USDC"],
+    "color": "#E84142",
+    "icon": "▲"
+  },
+  {
+    "id": "base",
+    "name": "Base",
+    "symbol": "ETH",
+    "type": "EVM L2",
+    "transferFee": 0.05,
+    "confirmation": "2s",
+    "throughput": 1000,
+    "stablecoins": ["USDC", "USDbC"],
+    "color": "#0052FF",
+    "icon": "△"
+  },
+  {
+    "id": "bnb",
+    "name": "BNB Chain",
+    "symbol": "BNB",
+    "type": "EVM",
+    "transferFee": 0.20,
+    "confirmation": "3s",
+    "throughput": 160,
+    "stablecoins": ["USDT", "USDC", "BUSD"],
+    "color": "#F3BA2F",
+    "icon": "◆"
+  },
+  {
+    "id": "ethereum",
+    "name": "Ethereum",
+    "symbol": "ETH",
+    "type": "EVM",
+    "transferFee": 2.50,
+    "confirmation": "12s",
+    "throughput": 15,
+    "stablecoins": ["USDT", "USDC", "DAI"],
+    "color": "#627EEA",
+    "icon": "◈"
+  },
+  {
+    "id": "hedera",
+    "name": "Hedera EVM",
+    "symbol": "HBAR",
+    "type": "EVM",
+    "transferFee": 0.001,
+    "confirmation": "3-5s",
+    "throughput": 10000,
+    "stablecoins": ["USDC", "HBARX"],
+    "color": "#000000",
+    "icon": "●"
+  },
+  {
+    "id": "optimism",
+    "name": "Optimism",
+    "symbol": "OP",
+    "type": "EVM L2",
+    "transferFee": 0.08,
+    "confirmation": "2s",
+    "throughput": 2000,
+    "stablecoins": ["USDT", "USDC"],
+    "color": "#FF0420",
+    "icon": "○"
+  },
+  {
+    "id": "polygon",
+    "name": "Polygon",
+    "symbol": "MATIC",
+    "type": "EVM",
+    "transferFee": 0.10,
+    "confirmation": "2s",
+    "throughput": 7000,
+    "stablecoins": ["USDT", "USDC"],
+    "color": "#8247E5",
+    "icon": "⬢"
+  },
+  {
+    "id": "stellar",
+    "name": "Stellar",
+    "symbol": "XLM",
+    "type": "Native",
+    "transferFee": 0.00001,
+    "confirmation": "5s",
+    "throughput": 3000,
+    "stablecoins": ["USDC"],
+    "color": "#14B6E7",
+    "icon": "★"
+  },
+  {
+    "id": "tron",
+    "name": "Tron",
+    "symbol": "TRX",
+    "type": "Native",
+    "transferFee": 0.15,
+    "confirmation": "3s",
+    "throughput": 2000,
+    "stablecoins": ["USDT", "USDC"],
+    "color": "#EB0029",
+    "icon": "◉"
+  }
+]
