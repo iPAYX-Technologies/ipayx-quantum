@@ -10,26 +10,41 @@ const NDAX_API_KEY = process.env.NDAX_API_KEY || "";
 const NDAX_SUPPORTED_COUNTRY = 'CA';
 
 export async function ndaxQuote(symbol: string = "BTC-CAD") {
-  const url = `${NDAX_BASE_URL}/api/v1/public/getticker?instrument=${symbol}`;
-  const res = await axios.get(url);
-  return res.data;
+  try {
+    const url = `${NDAX_BASE_URL}/api/v1/public/getticker?instrument=${symbol}`;
+    const res = await axios.get(url);
+    return res.data;
+  } catch (error) {
+    log("NDAX quote error:", error instanceof Error ? error.message : error);
+    throw new Error(`Failed to fetch NDAX quote for ${symbol}`);
+  }
 }
 
 export async function ndaxBalance(apiKey: string = NDAX_API_KEY) {
-  const url = `${NDAX_BASE_URL}/api/v1/private/getaccountbalances`;
-  const res = await axios.post(url, {}, {
-    headers: { Authorization: `Bearer ${apiKey}` },
-  });
-  log("NDAX balance fetched", res.data);
-  return res.data;
+  try {
+    const url = `${NDAX_BASE_URL}/api/v1/private/getaccountbalances`;
+    const res = await axios.post(url, {}, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+    log("NDAX balance fetched successfully");
+    return res.data;
+  } catch (error) {
+    log("NDAX balance error:", error instanceof Error ? error.message : error);
+    throw new Error("Failed to fetch NDAX account balances");
+  }
 }
 
-export async function ndaxWithdraw(toAddress: string, amount: number, asset: string = "USDC") {
-  const url = `${NDAX_BASE_URL}/api/v1/private/withdraw`;
-  const res = await axios.post(url, { asset, amount, toAddress }, {
-    headers: { Authorization: `Bearer ${NDAX_API_KEY}` },
-  });
-  return res.data;
+export async function ndaxWithdraw(toAddress: string, amount: number, asset: string = "USDC", apiKey: string = NDAX_API_KEY) {
+  try {
+    const url = `${NDAX_BASE_URL}/api/v1/private/withdraw`;
+    const res = await axios.post(url, { asset, amount, toAddress }, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+    return res.data;
+  } catch (error) {
+    log("NDAX withdraw error:", error instanceof Error ? error.message : error);
+    throw new Error(`Failed to process NDAX withdrawal of ${amount} ${asset}`);
+  }
 }
 
 // Preserved for backward compatibility with orchestrator
