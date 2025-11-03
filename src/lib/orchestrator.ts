@@ -5,13 +5,15 @@ import { getNdaxQuote } from '../providers/ndax';
 
 const providers: ProviderName[] = ['ndax', 'crossmint', 'transak'];
 
-// Crossmint placeholder (replace with real integration)
+// TODO: Crossmint placeholder - replace with real integration
 const getCrossmintQuote: GetQuoteFn = async (_params) => {
+  // PLACEHOLDER: Replace with actual Crossmint API integration
   return { provider: 'crossmint', fee: 0, eta: 5, available: true };
 };
 
-// Transak placeholder (replace with real integration)
+// TODO: Transak placeholder - replace with real integration
 const getTransakQuote: GetQuoteFn = async (_params) => {
+  // PLACEHOLDER: Replace with actual Transak API integration
   return { provider: 'transak', fee: 0.03, eta: 10, available: true };
 };
 

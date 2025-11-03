@@ -50,6 +50,8 @@ export const getNdaxQuote: GetQuoteFn = async (params: OnRampParams) => {
       return computeFallbackQuote(params);
     }
 
+    // Parse response with optional properties to handle various API response formats
+    // Type assertion is used here to maintain flexibility for the NDAX API response structure
     const data = await resp.json() as { fee?: number; etaMinutes?: number; available?: boolean };
     const fee = typeof data.fee === 'number' ? data.fee : 0.002;
     const eta = typeof data.etaMinutes === 'number' ? data.etaMinutes : 15;
