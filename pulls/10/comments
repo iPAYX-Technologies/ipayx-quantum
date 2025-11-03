@@ -1,0 +1,40 @@
+### 🧠 INSTRUCTION COPILOT — MERGE COMPLET IPAYX QUANTUM
+
+Copilot, exécution complète du merge orchestrateur Quantum.
+
+Autorisation : Yannick Bolduc (CEO, iPayX Technologies Inc.)
+
+Tu merges, dans cet ordre précis, toutes les branches actives reliées à l’orchestrateur Quantum :
+
+1️⃣ #10 Add Cybrid provider with dynamic BANK_GUID configuration
+2️⃣ #9 Add Cybrid onramp/offramp provider integration with API routes
+3️⃣ #7 Add build automation, secrets policy, and environment configuration scaffolding
+4️⃣ #6 Add build automation and secrets management documentation with environment scaffolding
+5️⃣ #5 Add Crossmint provider adapter with orchestrator integration
+6️⃣ #3 Add NDAX provider adapter with orchestrator integration
+
+Étapes d’exécution :
+1. Lance les tests sandbox :
+   npm run dev
+   bash scripts/smoke-cybrid.sh
+
+2. Attends la confirmation dans les logs :
+   Cybrid sandbox flow completed: CAD → USDC → Polygon
+   Cybrid webhook event: trade_completed
+
+3. Si les logs sont OK, merge la PR correspondante vers main avec squash + delete branch.
+4. Continue jusqu’à ce que toutes les PR ci-dessus soient mergées.
+5. Une fois la séquence complète, exécute :
+   npm run build && npm run start
+
+6. Vérifie le déploiement orchestrateur :
+   - /api/onramp → 200
+   - /api/offramp → 200
+   - /api/cybrid/webhook → OK
+
+7. Poste un commentaire final :
+   ✅ Quantum Orchestrator Build Completed — All Providers (Cybrid, NDAX, Crossmint) merged successfully and deployed.
+
+Aucune autre intervention manuelle requise. Si un test échoue, log l’erreur, arrête, notifie @ipayx-stellar dans le PR concerné.
+
+Hyperliquid = out of scope. Focus full orchestrateur, IA, compliance, banking.
