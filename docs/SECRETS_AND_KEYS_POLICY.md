@@ -17,7 +17,7 @@ This document outlines the definitive policy for managing secrets, API keys, and
 
 ### 2. Accessing Environment Variables
 
-**Always use `process.env` to access environment variables:**
+**Always use environment variables (via `process.env` or `import.meta.env`):**
 
 ```typescript
 // ✓ CORRECT: Using process.env
