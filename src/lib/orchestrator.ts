@@ -1,6 +1,6 @@
 // src/lib/orchestrator.ts
 
-import type { OnRampParams, ProviderName, GetQuoteFn } from '../providers/types';
+import type { OnRampParams, ProviderName, GetQuoteFn, ProviderQuote } from '../providers/types';
 import { getNdaxQuote } from '../providers/ndax';
 
 const providers: ProviderName[] = ['ndax', 'crossmint', 'transak'];
@@ -28,7 +28,7 @@ export async function getAllQuotes(params: OnRampParams) {
   return quotes;
 }
 
-export function getBestQuote(quotes: ReturnType<typeof getAllQuotes> extends Promise<infer T> ? T : never) {
+export function getBestQuote(quotes: ProviderQuote[]) {
   const available = quotes.filter((q) => q.available);
   if (available.length === 0) return null;
   
