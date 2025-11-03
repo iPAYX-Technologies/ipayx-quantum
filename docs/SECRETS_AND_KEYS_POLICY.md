@@ -162,9 +162,14 @@ export async function signIn(email: string, password: string) {
 ```typescript
 import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
 
+// Validate required environment variables
+if (!process.env.PLAID_CLIENT_ID || !process.env.PLAID_SECRET || !process.env.PLAID_ENV) {
+  throw new Error('Missing required Plaid configuration. Check PLAID_CLIENT_ID, PLAID_SECRET, and PLAID_ENV.');
+}
+
 // Server-side Plaid client
 const configuration = new Configuration({
-  basePath: PlaidEnvironments[process.env.PLAID_ENV || 'sandbox'],
+  basePath: PlaidEnvironments[process.env.PLAID_ENV],
   baseOptions: {
     headers: {
       'PLAID-CLIENT-ID': process.env.PLAID_CLIENT_ID,
@@ -247,11 +252,25 @@ git secrets --add 'SUPABASE_SERVICE_ROLE'
 6. Document the incident and remediation steps
 
 ### Removing Secrets from Git History
+
+⚠️ **WARNING**: This operation is irreversible and affects all collaborators. Coordinate with your team before executing.
+
 ```bash
 # Use git-filter-repo (recommended) or BFG Repo-Cleaner
 git filter-repo --path .env.local --invert-paths
+
+# After rewriting history, force push (COORDINATE WITH TEAM FIRST)
 git push --force
+
+# All team members will need to re-clone the repository
 ```
+
+**Important**: After rewriting git history:
+1. Notify all team members immediately
+2. All collaborators must delete their local clones
+3. All collaborators must re-clone the repository
+4. Update any CI/CD systems that have the repository checked out
+5. Rotate the exposed secrets even after removing from history
 
 ## Local Development Setup
 

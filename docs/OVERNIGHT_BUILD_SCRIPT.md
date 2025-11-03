@@ -80,7 +80,13 @@ test -d dist/assets || { echo "Error: assets directory not found"; exit 1; }
 ```bash
 # Verify no secrets in built files
 ! grep -r "sk_live_" dist/ || { echo "Error: Live API keys found in build"; exit 1; }
+! grep -r "sk_test_" dist/ || { echo "Error: Test API keys found in build"; exit 1; }
 ! grep -r "SUPABASE_SERVICE_ROLE" dist/ || { echo "Error: Service role key exposed"; exit 1; }
+! grep -r "PLAID_SECRET" dist/ || { echo "Error: Plaid secret exposed"; exit 1; }
+! grep -r "CYBRID_API_KEY" dist/ || { echo "Error: Cybrid API key exposed"; exit 1; }
+! grep -r "NDAX_API_KEY" dist/ || { echo "Error: NDAX API key exposed"; exit 1; }
+! grep -r "TRANSAK_API_KEY" dist/ || { echo "Error: Transak API key exposed"; exit 1; }
+! grep -r "SMTP_PASS" dist/ || { echo "Error: SMTP password exposed"; exit 1; }
 
 # Check for environment variable references (should be VITE_ prefixed for client)
 grep -r "VITE_" dist/assets/*.js > /dev/null && echo "Environment vars correctly prefixed"
