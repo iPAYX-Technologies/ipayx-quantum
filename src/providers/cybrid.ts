@@ -10,6 +10,10 @@
 import axios from 'axios';
 import type { OnRampParams, ProviderQuote } from './types';
 
+// Constants for currency conversions
+const CENTS_PER_CAD = 100;
+const USDC_DECIMALS = 6;
+
 /**
  * Get a quote from Cybrid for converting fiat to crypto
  * 
@@ -144,7 +148,7 @@ export async function fundCadAccount(customerGuid: string, amountCad: number): P
 
     const accountGuid = response.data.guid;
 
-    // Fund the account (sandbox only)
+    // Fund the account (sandbox only) - convert CAD to cents
     await axios.post(
       `${baseUrl}/api/deposits`,
       {
@@ -271,7 +275,7 @@ export async function cybridFullFlow(
   console.log('✅ Created customer:', customerGuid);
 
   // Step 2: Fund CAD account
-  const accountGuid = await fundCadAccount(customerGuid, cadAmount * 100); // Convert to cents
+  const accountGuid = await fundCadAccount(customerGuid, cadAmount * CENTS_PER_CAD);
   if (!accountGuid) {
     console.error('❌ Failed to fund account');
     return null;
@@ -304,7 +308,7 @@ export async function cybridFullFlow(
   // Step 5: Withdraw USDC to Polygon
   const withdrawalGuid = await withdrawUSDCPolygon(
     customerGuid,
-    quote.cryptoAmount * 1e6, // Convert to USDC smallest unit
+    quote.cryptoAmount * Math.pow(10, USDC_DECIMALS),
     polygonAddress
   );
 

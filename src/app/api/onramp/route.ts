@@ -159,7 +159,7 @@ export async function POST(request: Request): Promise<Response> {
 
     // TODO: Implement actual order creation with Cybrid
     // For now, return a stubbed order response
-    const orderId = `order_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+    const orderId = crypto.randomUUID();
     const order = {
       id: orderId,
       status: 'pending',

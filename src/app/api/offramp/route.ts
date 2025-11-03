@@ -75,7 +75,7 @@ export async function GET(request: Request): Promise<Response> {
       estimatedTimeSec: 600, // 10 minutes
       network,
       metadata: {
-        quoteId: `offramp_${Date.now()}`,
+        quoteId: crypto.randomUUID(),
         expiresAt: new Date(Date.now() + 5 * 60 * 1000).toISOString(), // 5 min expiry
       },
     };
@@ -157,7 +157,7 @@ export async function POST(request: Request): Promise<Response> {
 
     // TODO: Implement actual offramp order creation with NDAX or other provider
     // For now, return a stubbed order response
-    const orderId = `offramp_order_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+    const orderId = crypto.randomUUID();
     const order = {
       id: orderId,
       status: 'pending',
