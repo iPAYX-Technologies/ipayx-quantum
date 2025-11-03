@@ -102,8 +102,12 @@ ls -lh dist/
 echo "✓ Production build completed"
 
 # Check bundle size
-du -sh dist/assets/*.js
-du -sh dist/assets/*.css
+if ls dist/assets/*.js 1> /dev/null 2>&1; then
+  du -sh dist/assets/*.js
+fi
+if ls dist/assets/*.css 1> /dev/null 2>&1; then
+  du -sh dist/assets/*.css
+fi
 ```
 
 ### 3.3 Build Verification
@@ -216,7 +220,7 @@ echo "✓ Edge function secrets configured"
 ```bash
 # Test critical edge functions
 curl -X POST https://ggkymbeyesuodnoogzyb.supabase.co/functions/v1/meta-router \
-  -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+  -H "Authorization: Bearer ${VITE_SUPABASE_PUBLISHABLE_KEY}" \
   -H "Content-Type: application/json" \
   -d '{"from":"CAD","to":"USD","amount":10000}'
 
@@ -296,13 +300,9 @@ echo "✓ Smoke tests passed"
 ### 7.2 Functionality Checks
 
 ```bash
-# Test Supabase connection from production
-curl -X POST "${PRODUCTION_URL}/api/test-connection" \
-  -H "Content-Type: application/json"
-
 # Test edge functions via production
 curl -X POST "https://ggkymbeyesuodnoogzyb.supabase.co/functions/v1/meta-router" \
-  -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+  -H "Authorization: Bearer ${VITE_SUPABASE_PUBLISHABLE_KEY}" \
   -H "Content-Type: application/json" \
   -d '{"from":"USD","to":"EUR","amount":1000}'
 
@@ -550,11 +550,22 @@ echo "✓ Rollback plan documented"
 
 ## Final Notes
 
-- Build completed on: `$(date)`
-- Build by: `$(whoami)`
-- Git commit: `$(git rev-parse HEAD)`
-- Production URL: `${PRODUCTION_URL}`
+When completing the build, record the following information:
+
+- Build completed on: [Run `date` to fill in]
+- Build by: [Run `whoami` to fill in]
+- Git commit: [Run `git rev-parse HEAD` to fill in]
+- Production URL: [Your production URL]
 - Status: **DEPLOYED** ✓
+
+Example:
+```bash
+echo "Build completed on: $(date)"
+echo "Build by: $(whoami)"
+echo "Git commit: $(git rev-parse HEAD)"
+echo "Production URL: ${PRODUCTION_URL}"
+echo "Status: DEPLOYED ✓"
+```
 
 ---
 
