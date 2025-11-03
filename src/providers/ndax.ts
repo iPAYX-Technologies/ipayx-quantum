@@ -1,7 +1,38 @@
+// src/providers/ndax.ts
+// iPayX Quantum — NDAX Provider Integration
+
+import axios from "axios";
+import { log } from "@/lib/logger";
 import type { GetQuoteFn, OnRampParams, ProviderQuote } from './types';
 
+const NDAX_BASE_URL = process.env.NDAX_BASE_URL || "https://api.ndax.io";
+const NDAX_API_KEY = process.env.NDAX_API_KEY || "";
 const NDAX_SUPPORTED_COUNTRY = 'CA';
 
+export async function ndaxQuote(symbol: string = "BTC-CAD") {
+  const url = `${NDAX_BASE_URL}/api/v1/public/getticker?instrument=${symbol}`;
+  const res = await axios.get(url);
+  return res.data;
+}
+
+export async function ndaxBalance(apiKey: string = NDAX_API_KEY) {
+  const url = `${NDAX_BASE_URL}/api/v1/private/getaccountbalances`;
+  const res = await axios.post(url, {}, {
+    headers: { Authorization: `Bearer ${apiKey}` },
+  });
+  log("NDAX balance fetched", res.data);
+  return res.data;
+}
+
+export async function ndaxWithdraw(toAddress: string, amount: number, asset: string = "USDC") {
+  const url = `${NDAX_BASE_URL}/api/v1/private/withdraw`;
+  const res = await axios.post(url, { asset, amount, toAddress }, {
+    headers: { Authorization: `Bearer ${NDAX_API_KEY}` },
+  });
+  return res.data;
+}
+
+// Preserved for backward compatibility with orchestrator
 function computeFallbackQuote(params: OnRampParams): ProviderQuote {
   return {
     provider: 'ndax',
@@ -12,12 +43,10 @@ function computeFallbackQuote(params: OnRampParams): ProviderQuote {
 }
 
 /**
- * NDAX quote adapter.
+ * NDAX quote adapter for orchestrator.
  * Environment variables:
  * - NDAX_API_KEY
  * - NDAX_BASE_URL (e.g. https://api.ndax.io or your proxy)
- *
- * Replace the endpoint and response mapping with NDAX's real API when available.
  */
 export const getNdaxQuote: GetQuoteFn = async (params: OnRampParams) => {
   const apiKey = process.env.NDAX_API_KEY;
