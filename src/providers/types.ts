@@ -1,4 +1,4 @@
-export type ProviderName = 'ndax' | 'crossmint' | 'transak';
+export type ProviderName = 'ndax' | 'crossmint' | 'transak' | 'cybrid';
 
 export interface ProviderQuote {
   provider: ProviderName;
