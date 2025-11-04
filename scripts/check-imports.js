@@ -18,14 +18,15 @@ function grepImports(pattern) {
     // Look for import/require statements with the banned package
     // This will match any occurrence, we filter relative paths below
     const out = execSync(
-      `git ls-files | grep -E "\\.(ts|tsx|js|jsx)$" | xargs grep -nH -E '(import|require).*["'"'"'].*${pattern}'`,
+      `git ls-files | grep -E "\\.(ts|tsx|js|jsx)$" | xargs -r grep -nH -E '(import|require).*["'"'"'].*${pattern}'`,
       { stdio: ['ignore', 'pipe', 'ignore'] }
     );
     const lines = out.toString().trim().split('\n');
     
     // Filter out relative imports (./  ../ or /)
     const filtered = lines.filter(line => {
-      const match = line.match(/["']([^"']+)["']/);
+      // More specific regex to capture import/require statement
+      const match = line.match(/(?:import|require).*?["']([^"']+)["']/);
       if (!match) return false;
       const importPath = match[1];
       // Exclude if it starts with ./ or ../ or /
