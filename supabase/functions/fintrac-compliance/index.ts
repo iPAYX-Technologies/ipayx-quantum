@@ -109,7 +109,9 @@ serve(async (req) => {
 
     // Generate file metadata (we don't actually write to filesystem in serverless)
     const fileName = generateFintracFileName(senderId);
-    const filePath = `/tmp/fintrac/${fileName}`;
+    // Use environment-configurable path or fallback to /tmp/fintrac
+    const basePath = Deno.env.get('FINTRAC_OUTPUT_PATH') || '/tmp/fintrac';
+    const filePath = `${basePath}/${fileName}`;
 
     // Truncate preview if too long
     const xmlPreview = xml.length > 2000 ? xml.slice(0, 2000) + '...[truncated]' : xml;

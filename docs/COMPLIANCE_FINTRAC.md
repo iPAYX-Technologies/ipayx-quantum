@@ -31,13 +31,16 @@ The system automatically generates FINTRAC-compliant XML reports for CAD payment
 
 The system supports a `DRY_RUN` mode (enabled by default) to prevent actual submission of reports during development and testing:
 
-### Environment Variable
+### Environment Variables
 ```bash
 # Enable DRY_RUN (default)
 export DRY_RUN=true
 
 # Disable DRY_RUN (production)
 export DRY_RUN=false
+
+# Configure FINTRAC output path (optional, Supabase Edge Function only)
+export FINTRAC_OUTPUT_PATH=/custom/path/fintrac
 ```
 
 ### XML Comment Indicator
@@ -153,6 +156,13 @@ const checkFintracCompliance = async (amount: number, currency: string) => {
   }
 };
 ```
+
+**⚠️ IMPORTANT - KYC Data Warning:**
+The example above uses placeholder KYC data for demonstration/DRY_RUN mode only. **In production, you MUST:**
+- Replace placeholder data with actual validated KYC information from the user's account
+- Implement proper KYC collection flow before triggering FINTRAC compliance
+- Ensure all KYC data meets FINTRAC requirements (name, address, DOB, ID verification)
+- Store KYC data securely and comply with privacy regulations
 
 ### Integration Points
 1. **Payment Quote Flow** - When user requests quote for CAD ≥ $10k

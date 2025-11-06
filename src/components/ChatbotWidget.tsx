@@ -21,11 +21,17 @@ export default function ChatbotWidget() {
 
   // Helper to check for CAD payment in message and trigger FINTRAC compliance if needed
   const checkFintracCompliance = async (messageContent: string) => {
-    // Simple pattern matching for CAD amounts (e.g., "15000 CAD", "$15,000 CAD", "CAD 15000")
-    const cadPattern = /(?:CAD\s*)?[$]?\s*([\d,]+(?:\.\d{2})?)\s*(?:CAD)?/gi;
+    // More precise pattern matching for CAD amounts
+    // Matches: "$15000 CAD", "15,000 CAD", "CAD 15000", "CAD $15,000"
+    // Ensures amount and CAD are closely associated
+    const cadPattern = /(?:CAD[\s$]*|[$]\s*)([\d,]+(?:\.\d{2})?)\s*(?:CAD)?/gi;
     const matches = messageContent.match(cadPattern);
     
     if (!matches) return;
+    
+    // Verify it's actually CAD (not just any number near the word CAD)
+    const isCad = /(?:^|\s|[$])([\d,]+(?:\.\d{2})?)\s*CAD|CAD\s*[$]?\s*([\d,]+(?:\.\d{2})?)/i.test(messageContent);
+    if (!isCad) return;
     
     // Extract numeric amount
     const amountMatch = matches[0].match(/[\d,]+(?:\.\d{2})?/);
@@ -34,13 +40,14 @@ export default function ChatbotWidget() {
     const amountStr = amountMatch[0].replace(/,/g, '');
     const amount = parseFloat(amountStr);
     
-    // Check if message indicates CAD currency and amount >= 10,000
-    const isCad = /CAD/i.test(messageContent);
-    if (!isCad || amount < 10000) return;
+    if (amount < 10000) return;
     
     try {
       console.log(`[FINTRAC] Detected CAD payment of ${amount}, checking compliance...`);
       
+      // WARNING: This uses placeholder KYC data for demonstration/DRY_RUN only
+      // In production, replace with actual validated KYC data from user's account
+      // or implement proper KYC collection flow before triggering compliance
       const { data, error } = await supabase.functions.invoke('fintrac-compliance', {
         body: {
           senderId: 'CHAT_USER',
