@@ -36,7 +36,7 @@ export const SmartRoutingMemory = ({ onMemoryMatch }: SmartRoutingMemoryProps) =
     try {
       const response = await atlasApi.saveMemory(data);
       if (response.success) {
-        setMemories({ ...memories, [Object.keys(response.data)[0]]: response.data });
+        setMemories({ ...memories, ...response.data });
       }
     } catch (error) {
       console.error('Failed to save memory:', error);

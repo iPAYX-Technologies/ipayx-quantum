@@ -2,10 +2,36 @@ import { useEffect, useState } from 'react';
 import { atlasApi } from '@/services/atlas-api';
 import '../atlas/atlas.css';
 
+interface WeatherData {
+  location: string;
+  temperature: number;
+  condition: string;
+  icon: string;
+}
+
+interface MarketData {
+  cadUsd: {
+    rate: number;
+    change: string;
+    direction: 'up' | 'down';
+  };
+  btcUsdc: {
+    rate: number;
+    change: string;
+    direction: 'up' | 'down';
+  };
+}
+
+interface NewsItem {
+  title: string;
+  source: string;
+  time: string;
+}
+
 export const TopStrip = () => {
-  const [weather, setWeather] = useState<any>(null);
-  const [market, setMarket] = useState<any>(null);
-  const [news, setNews] = useState<any[]>([]);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [market, setMarket] = useState<MarketData | null>(null);
+  const [news, setNews] = useState<NewsItem[]>([]);
 
   useEffect(() => {
     const loadData = async () => {

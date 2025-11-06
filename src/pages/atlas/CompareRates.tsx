@@ -1,13 +1,27 @@
 import { useState, useEffect } from 'react';
 import { atlasApi } from '@/services/atlas-api';
+import { toast } from 'sonner';
 import '../atlas/atlas.css';
 
+interface Quote {
+  provider: string;
+  feePct: number;
+  spreadPct: number;
+  eta: string;
+  route: string;
+  totalCost: number;
+  rate: number;
+  amount: number;
+  fromCurrency: string;
+  toCurrency: string;
+}
+
 interface CompareRatesProps {
-  onInjectRoute?: (quote: any) => void;
+  onInjectRoute?: (quote: Quote) => void;
 }
 
 export const CompareRates = ({ onInjectRoute }: CompareRatesProps) => {
-  const [quotes, setQuotes] = useState<any[]>([]);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(32000);
   const [fromCurrency] = useState('CAD');
@@ -38,10 +52,13 @@ export const CompareRates = ({ onInjectRoute }: CompareRatesProps) => {
     loadQuotes();
   }, []);
 
-  const handleSimulate = (quote: any) => {
+  const handleSimulate = (quote: Quote) => {
     onInjectRoute?.(quote);
-    // Show a toast or notification
-    alert(`Best route injected into Send Money:\n\n${quote.route}\n\nFee: ${quote.feePct}% + Spread: ${quote.spreadPct}%\nTotal Cost: $${quote.totalCost}`);
+    // Show toast notification
+    toast.success('Best route injected into Send Money', {
+      description: `${quote.provider}: ${quote.route}\nFee: ${quote.feePct}% + Spread: ${quote.spreadPct}%\nTotal Cost: $${quote.totalCost}`,
+      duration: 5000
+    });
   };
 
   const getBestQuote = () => {
