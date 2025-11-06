@@ -1,0 +1,206 @@
+/* Atlas Theme Styles - Light Mode Only */
+
+.atlas-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #007FFF 0%, #00CFFF 100%);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #0F1115;
+}
+
+.atlas-glass-surface {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.atlas-glass-surface-light {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.atlas-accent {
+  color: #00FFD1;
+}
+
+.atlas-accent-bg {
+  background-color: #00FFD1;
+}
+
+.atlas-surface-light {
+  background-color: #E0F6FF;
+}
+
+.atlas-text-primary {
+  color: #0F1115;
+}
+
+.atlas-text-secondary {
+  color: #4A5568;
+}
+
+.atlas-button-primary {
+  background: linear-gradient(135deg, #007FFF 0%, #00CFFF 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.atlas-button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 127, 255, 0.4);
+}
+
+.atlas-button-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: #007FFF;
+  border: 2px solid #007FFF;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.atlas-button-secondary:hover {
+  background: #E0F6FF;
+  transform: translateY(-2px);
+}
+
+.atlas-input {
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(0, 127, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: #0F1115;
+  transition: all 0.3s ease;
+}
+
+.atlas-input:focus {
+  outline: none;
+  border-color: #007FFF;
+  box-shadow: 0 0 0 3px rgba(0, 127, 255, 0.1);
+}
+
+.atlas-nav-item {
+  padding: 0.875rem 1.25rem;
+  border-radius: 0.5rem;
+  color: #0F1115;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.atlas-nav-item:hover {
+  background: rgba(0, 127, 255, 0.1);
+}
+
+.atlas-nav-item.active {
+  background: rgba(0, 127, 255, 0.15);
+  color: #007FFF;
+  font-weight: 600;
+}
+
+.atlas-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 127, 255, 0.2);
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  color: #0F1115;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.atlas-chip:hover {
+  background: #E0F6FF;
+  border-color: #007FFF;
+  transform: translateY(-2px);
+}
+
+.atlas-widget {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.atlas-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.atlas-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.atlas-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 127, 255, 0.3);
+  border-radius: 4px;
+}
+
+.atlas-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 127, 255, 0.5);
+}
+
+/* Chat Rail Styles */
+.atlas-chat-rail {
+  height: calc(100vh - 6rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.atlas-chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.atlas-chat-input-container {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(0, 127, 255, 0.1);
+}
+
+/* Animation utilities */
+@keyframes atlas-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.atlas-fade-in {
+  animation: atlas-fade-in 0.4s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .atlas-glass-surface {
+    border-radius: 0.75rem;
+  }
+  
+  .atlas-button-primary,
+  .atlas-button-secondary {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+}

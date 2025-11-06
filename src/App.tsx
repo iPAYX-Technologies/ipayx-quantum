@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/contexts/AuthContext";
@@ -47,8 +47,64 @@ import AdminBulkCampaign from "./pages/AdminBulkCampaign";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
 import PerplexitySearch from "./pages/PerplexitySearch";
+import Atlas from "./pages/Atlas";
 
 const queryClient = new QueryClient();
+
+const AppContent = () => {
+  const location = useLocation();
+  const isAtlasRoute = location.pathname === '/atlas';
+
+  return (
+    <>
+      <Toaster />
+      <Sonner />
+      <CookieConsent />
+      {!isAtlasRoute && <Navbar />}
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/demo" element={<Demo />} />
+        <Route path="/quote" element={<Quote />} />
+        <Route path="/payment/success" element={<PaymentSuccess />} />
+        <Route path="/payment/cancel" element={<PaymentCancel />} />
+        <Route path="/search" element={<PerplexitySearch />} />
+        <Route path="/legal" element={<Legal />} />
+        <Route path="/legal-fr" element={<LegalFR />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/privacy-fr" element={<PrivacyFR />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/terms-fr" element={<TermsFR />} />
+        <Route path="/cookies" element={<Cookies />} />
+        <Route path="/pitch" element={<Pitch />} />
+        <Route path="/monitoring" element={<Monitoring />} />
+        <Route path="/agents" element={<Agents />} />
+        <Route path="/blog/meta-router-explained" element={<Blog />} />
+        <Route path="/chains" element={<Chains />} />
+        <Route path="/atlas" element={<Atlas />} />
+        
+        {/* Protected Routes */}
+        <Route path="/keys" element={<ProtectedRoute><Keys /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute requireAdmin={true}><Admin /></ProtectedRoute>} />
+        <Route path="/admin/leads" element={<ProtectedRoute requireAdmin={true}><AdminLeads /></ProtectedRoute>} />
+        <Route path="/admin/fx-monitoring" element={<ProtectedRoute requireAdmin={true}><FxMonitoring /></ProtectedRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/update-password" element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} />
+        <Route path="/enable-2fa" element={<ProtectedRoute><Enable2FA /></ProtectedRoute>} />
+        <Route path="/meta-router" element={<ProtectedRoute><MetaRouter /></ProtectedRoute>} />
+        <Route path="/test-e2e" element={<ProtectedRoute><TestE2E /></ProtectedRoute>} />
+        <Route path="/marketing" element={<ProtectedRoute requireAdmin={true}><Marketing /></ProtectedRoute>} />
+        <Route path="/admin/bulk-campaign" element={<ProtectedRoute requireAdmin={true}><AdminBulkCampaign /></ProtectedRoute>} />
+        
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      {!isAtlasRoute && <Footer />}
+    </>
+  );
+};
 
 const App = () => (
   <ErrorBoundary>
@@ -59,50 +115,7 @@ const App = () => (
           <BrowserRouter>
             <AuthProvider>
               <LanguageProvider>
-                  <Toaster />
-                  <Sonner />
-                  <CookieConsent />
-                  <Navbar />
-                  <Routes>
-                  {/* Public Routes */}
-                  <Route path="/" element={<Landing />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/reset-password" element={<ResetPassword />} />
-                  <Route path="/demo" element={<Demo />} />
-                  <Route path="/quote" element={<Quote />} />
-                  <Route path="/payment/success" element={<PaymentSuccess />} />
-                  <Route path="/payment/cancel" element={<PaymentCancel />} />
-                  <Route path="/search" element={<PerplexitySearch />} />
-                  <Route path="/legal" element={<Legal />} />
-                  <Route path="/legal-fr" element={<LegalFR />} />
-                  <Route path="/privacy" element={<Privacy />} />
-                  <Route path="/privacy-fr" element={<PrivacyFR />} />
-                  <Route path="/terms" element={<Terms />} />
-                  <Route path="/terms-fr" element={<TermsFR />} />
-                  <Route path="/cookies" element={<Cookies />} />
-                  <Route path="/pitch" element={<Pitch />} />
-                  <Route path="/monitoring" element={<Monitoring />} />
-                  <Route path="/agents" element={<Agents />} />
-                  <Route path="/blog/meta-router-explained" element={<Blog />} />
-                  <Route path="/chains" element={<Chains />} />
-                  
-                  {/* Protected Routes */}
-                  <Route path="/keys" element={<ProtectedRoute><Keys /></ProtectedRoute>} />
-                  <Route path="/admin" element={<ProtectedRoute requireAdmin={true}><Admin /></ProtectedRoute>} />
-                  <Route path="/admin/leads" element={<ProtectedRoute requireAdmin={true}><AdminLeads /></ProtectedRoute>} />
-                  <Route path="/admin/fx-monitoring" element={<ProtectedRoute requireAdmin={true}><FxMonitoring /></ProtectedRoute>} />
-                  <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-                  <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                  <Route path="/update-password" element={<ProtectedRoute><UpdatePassword /></ProtectedRoute>} />
-                  <Route path="/enable-2fa" element={<ProtectedRoute><Enable2FA /></ProtectedRoute>} />
-                  <Route path="/meta-router" element={<ProtectedRoute><MetaRouter /></ProtectedRoute>} />
-                  <Route path="/test-e2e" element={<ProtectedRoute><TestE2E /></ProtectedRoute>} />
-                  <Route path="/marketing" element={<ProtectedRoute requireAdmin={true}><Marketing /></ProtectedRoute>} />
-                  <Route path="/admin/bulk-campaign" element={<ProtectedRoute requireAdmin={true}><AdminBulkCampaign /></ProtectedRoute>} />
-                  
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-                <Footer />
+                <AppContent />
             </LanguageProvider>
           </AuthProvider>
         </BrowserRouter>
