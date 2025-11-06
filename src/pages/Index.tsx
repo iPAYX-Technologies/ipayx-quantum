@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import RailsTableNew from "../components/RailsTableNew";
 import { fetchRails } from "../lib/api";
 import type { Rail } from "../types/rails";
@@ -77,6 +78,20 @@ export default function Index() {
         <h1 className="text-2xl md:text-3xl font-semibold">
           iPAYX V4 — Meta-Router (Lovable demo)
         </h1>
+
+        {/* Link to Atlas */}
+        <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+          <p className="text-blue-200 text-sm flex items-center gap-2 mb-2">
+            <span className="text-lg">✨</span>
+            <strong>New:</strong> Check out the Quantum Atlas UI Blueprint
+          </p>
+          <Link
+            to="/atlas"
+            className="inline-block px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-400 text-white font-medium transition-colors"
+          >
+            Open Quantum Atlas →
+          </Link>
+        </div>
 
         <div className="flex items-center gap-3 flex-wrap">
           <button

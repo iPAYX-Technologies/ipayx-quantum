@@ -1,0 +1,319 @@
+/* 
+ * Quantum Atlas Theme - iPayX Blue Palette (Light Mode)
+ * DRY_RUN-safe styling for payments-only UI
+ */
+
+:root {
+  /* Atlas Color Palette */
+  --atlas-bg-start: #007FFF;
+  --atlas-bg-end: #00CFFF;
+  --atlas-accent: #00FFD1;
+  --atlas-surface: #E0F6FF;
+  --atlas-text-dark: #0F1115;
+  --atlas-text-light: #FFFFFF;
+  --atlas-glass-white: rgba(255, 255, 255, 0.92);
+  --atlas-glass-surface: rgba(255, 255, 255, 0.96);
+  
+  /* Spacing */
+  --atlas-spacing-xs: 0.5rem;
+  --atlas-spacing-sm: 1rem;
+  --atlas-spacing-md: 1.5rem;
+  --atlas-spacing-lg: 2rem;
+  --atlas-spacing-xl: 3rem;
+  
+  /* Border Radius */
+  --atlas-radius-sm: 0.5rem;
+  --atlas-radius-md: 1rem;
+  --atlas-radius-lg: 1.5rem;
+  --atlas-radius-xl: 2rem;
+}
+
+/* Atlas Container */
+.atlas-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--atlas-bg-start) 0%, var(--atlas-bg-end) 100%);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--atlas-text-dark);
+}
+
+/* Glass Surface */
+.atlas-glass {
+  background: var(--atlas-glass-white);
+  border-radius: var(--atlas-radius-xl);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.atlas-glass-surface {
+  background: var(--atlas-glass-surface);
+  border-radius: var(--atlas-radius-lg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Left Navigation */
+.atlas-left-nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  padding: var(--atlas-spacing-lg);
+  background: var(--atlas-glass-white);
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.05);
+  z-index: 100;
+}
+
+.atlas-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--atlas-spacing-sm);
+  padding: var(--atlas-spacing-sm) var(--atlas-spacing-md);
+  margin-bottom: var(--atlas-spacing-xs);
+  border-radius: var(--atlas-radius-md);
+  color: var(--atlas-text-dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.atlas-nav-item:hover {
+  background: var(--atlas-surface);
+  transform: translateX(4px);
+}
+
+.atlas-nav-item.active {
+  background: var(--atlas-accent);
+  color: var(--atlas-text-dark);
+  font-weight: 600;
+}
+
+/* Top Strip */
+.atlas-top-strip {
+  position: fixed;
+  top: 0;
+  left: 260px;
+  right: 0;
+  height: 80px;
+  padding: var(--atlas-spacing-sm) var(--atlas-spacing-lg);
+  background: var(--atlas-glass-white);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  gap: var(--atlas-spacing-md);
+  z-index: 90;
+}
+
+.atlas-widget {
+  padding: var(--atlas-spacing-xs) var(--atlas-spacing-md);
+  background: var(--atlas-glass-surface);
+  border-radius: var(--atlas-radius-md);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+/* Main Content Area */
+.atlas-main {
+  margin-left: 260px;
+  margin-top: 80px;
+  padding: var(--atlas-spacing-lg);
+  min-height: calc(100vh - 80px);
+}
+
+/* Chat Rail */
+.atlas-chat-rail {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: var(--atlas-spacing-xl);
+}
+
+.atlas-chat-input {
+  width: 100%;
+  padding: var(--atlas-spacing-md);
+  border: 2px solid var(--atlas-surface);
+  border-radius: var(--atlas-radius-lg);
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.atlas-chat-input:focus {
+  outline: none;
+  border-color: var(--atlas-accent);
+  box-shadow: 0 0 0 3px rgba(0, 255, 209, 0.1);
+}
+
+/* Provider Selector */
+.atlas-provider-selector {
+  display: flex;
+  gap: var(--atlas-spacing-sm);
+  margin: var(--atlas-spacing-md) 0;
+}
+
+.atlas-provider-button {
+  padding: var(--atlas-spacing-xs) var(--atlas-spacing-md);
+  background: var(--atlas-glass-surface);
+  border: 2px solid transparent;
+  border-radius: var(--atlas-radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.atlas-provider-button:hover {
+  border-color: var(--atlas-accent);
+  transform: translateY(-2px);
+}
+
+.atlas-provider-button.active {
+  background: var(--atlas-accent);
+  border-color: var(--atlas-accent);
+  font-weight: 600;
+}
+
+/* Suggestion Chips */
+.atlas-suggestions {
+  display: flex;
+  gap: var(--atlas-spacing-sm);
+  overflow-x: auto;
+  padding: var(--atlas-spacing-md) 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--atlas-accent) transparent;
+}
+
+.atlas-suggestion-chip {
+  padding: var(--atlas-spacing-sm) var(--atlas-spacing-md);
+  background: var(--atlas-glass-surface);
+  border: 1px solid var(--atlas-surface);
+  border-radius: var(--atlas-radius-lg);
+  white-space: nowrap;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.atlas-suggestion-chip:hover {
+  background: var(--atlas-accent);
+  border-color: var(--atlas-accent);
+  transform: scale(1.05);
+}
+
+/* Compare Rates Table */
+.atlas-rates-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--atlas-spacing-lg) 0;
+}
+
+.atlas-rates-table th,
+.atlas-rates-table td {
+  padding: var(--atlas-spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--atlas-surface);
+}
+
+.atlas-rates-table th {
+  background: var(--atlas-glass-surface);
+  font-weight: 600;
+  color: var(--atlas-text-dark);
+}
+
+.atlas-rates-table tr:hover {
+  background: var(--atlas-surface);
+}
+
+/* Buttons */
+.atlas-button {
+  padding: var(--atlas-spacing-sm) var(--atlas-spacing-lg);
+  background: var(--atlas-accent);
+  color: var(--atlas-text-dark);
+  border: none;
+  border-radius: var(--atlas-radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.atlas-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 255, 209, 0.3);
+}
+
+.atlas-button:active {
+  transform: translateY(0);
+}
+
+.atlas-button-secondary {
+  background: var(--atlas-glass-surface);
+  color: var(--atlas-text-dark);
+}
+
+/* Cards */
+.atlas-card {
+  background: var(--atlas-glass-white);
+  border-radius: var(--atlas-radius-xl);
+  padding: var(--atlas-spacing-lg);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  margin-bottom: var(--atlas-spacing-lg);
+}
+
+/* Memory Indicator */
+.atlas-memory-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--atlas-spacing-xs);
+  padding: var(--atlas-spacing-xs) var(--atlas-spacing-sm);
+  background: var(--atlas-accent);
+  color: var(--atlas-text-dark);
+  border-radius: var(--atlas-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .atlas-left-nav {
+    width: 200px;
+  }
+  
+  .atlas-main {
+    margin-left: 200px;
+  }
+  
+  .atlas-top-strip {
+    left: 200px;
+  }
+  
+  .atlas-chat-rail {
+    max-width: 85%;
+  }
+}
+
+@media (max-width: 768px) {
+  .atlas-left-nav {
+    width: 100%;
+    height: auto;
+    position: relative;
+    box-shadow: none;
+  }
+  
+  .atlas-main {
+    margin-left: 0;
+    margin-top: 0;
+  }
+  
+  .atlas-top-strip {
+    left: 0;
+    position: relative;
+    height: auto;
+    flex-wrap: wrap;
+  }
+  
+  .atlas-chat-rail {
+    max-width: 100%;
+    padding: var(--atlas-spacing-md);
+  }
+}

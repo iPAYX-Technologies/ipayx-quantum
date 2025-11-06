@@ -1,0 +1,32 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#007FFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00CFFF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="balloonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0066FF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGradient)"/>
+  
+  <!-- Blue Balloon -->
+  <ellipse cx="600" cy="300" rx="180" ry="220" fill="url(#balloonGradient)" opacity="0.9"/>
+  <ellipse cx="600" cy="280" rx="150" ry="180" fill="#00CFFF" opacity="0.3"/>
+  
+  <!-- String -->
+  <path d="M 600 520 Q 590 560, 580 600" stroke="#0066FF" stroke-width="3" fill="none" opacity="0.7"/>
+  
+  <!-- Title -->
+  <text x="600" y="580" font-family="Inter, system-ui, sans-serif" font-size="48" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+    Blue Balloon Blueprint
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="630" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="400" fill="#E0F6FF" text-anchor="middle">
+    iPayX Quantum Rail Payments
+  </text>
+</svg>
