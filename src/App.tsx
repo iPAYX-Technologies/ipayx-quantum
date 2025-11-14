@@ -47,6 +47,7 @@ import AdminBulkCampaign from "./pages/AdminBulkCampaign";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
 import PerplexitySearch from "./pages/PerplexitySearch";
+import Atlas from "./pages/Atlas";
 
 const queryClient = new QueryClient();
 
@@ -85,6 +86,7 @@ const App = () => (
                   <Route path="/agents" element={<Agents />} />
                   <Route path="/blog/meta-router-explained" element={<Blog />} />
                   <Route path="/chains" element={<Chains />} />
+                  <Route path="/atlas" element={<Atlas />} />
                   
                   {/* Protected Routes */}
                   <Route path="/keys" element={<ProtectedRoute><Keys /></ProtectedRoute>} />

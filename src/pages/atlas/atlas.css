@@ -1,0 +1,220 @@
+/* Atlas Theme - iPayX Blue Palette (Light Mode Only) */
+
+:root {
+  /* Primary Colors */
+  --atlas-blue-start: #007FFF;
+  --atlas-blue-end: #00CFFF;
+  --atlas-accent: #00FFD1;
+  --atlas-surface: #E0F6FF;
+  --atlas-text: #0F1115;
+  
+  /* Glass Effects */
+  --atlas-glass-bg: rgba(255, 255, 255, 0.92);
+  --atlas-glass-bg-hover: rgba(255, 255, 255, 0.96);
+  
+  /* Shadows */
+  --atlas-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --atlas-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --atlas-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Typography */
+  --atlas-font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.atlas-container {
+  font-family: var(--atlas-font-family);
+  background: linear-gradient(180deg, var(--atlas-blue-start) 0%, var(--atlas-blue-end) 100%);
+  min-height: 100vh;
+  color: var(--atlas-text);
+}
+
+.atlas-surface {
+  background: var(--atlas-glass-bg);
+  border-radius: 1rem;
+  box-shadow: var(--atlas-shadow-md);
+  backdrop-filter: blur(10px);
+}
+
+.atlas-surface:hover {
+  background: var(--atlas-glass-bg-hover);
+  box-shadow: var(--atlas-shadow-lg);
+}
+
+.atlas-leftnav {
+  background: var(--atlas-glass-bg);
+  border-radius: 1rem;
+  box-shadow: var(--atlas-shadow-md);
+  backdrop-filter: blur(10px);
+  width: 240px;
+  padding: 1.5rem 1rem;
+}
+
+.atlas-nav-item {
+  padding: 0.75rem 1rem;
+  margin: 0.25rem 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--atlas-text);
+  font-weight: 500;
+}
+
+.atlas-nav-item:hover {
+  background: var(--atlas-accent);
+  color: white;
+  transform: translateX(4px);
+}
+
+.atlas-nav-item.active {
+  background: var(--atlas-accent);
+  color: white;
+}
+
+.atlas-topstrip {
+  background: var(--atlas-glass-bg);
+  border-radius: 1rem;
+  box-shadow: var(--atlas-shadow-md);
+  backdrop-filter: blur(10px);
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.atlas-widget {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.atlas-widget-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--atlas-text);
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+.atlas-widget-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--atlas-text);
+}
+
+.atlas-chatrail {
+  background: var(--atlas-glass-bg);
+  border-radius: 1rem;
+  box-shadow: var(--atlas-shadow-md);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+}
+
+.atlas-chat-input {
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid var(--atlas-accent);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 100%;
+  font-family: var(--atlas-font-family);
+  color: var(--atlas-text);
+}
+
+.atlas-chat-input:focus {
+  outline: none;
+  border-color: var(--atlas-blue-start);
+  box-shadow: 0 0 0 3px rgba(0, 127, 255, 0.1);
+}
+
+.atlas-suggestion-chip {
+  display: inline-block;
+  background: rgba(0, 255, 209, 0.2);
+  border: 1px solid var(--atlas-accent);
+  color: var(--atlas-text);
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  margin: 0.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.atlas-suggestion-chip:hover {
+  background: var(--atlas-accent);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--atlas-shadow-md);
+}
+
+.atlas-table {
+  background: var(--atlas-glass-bg);
+  border-radius: 1rem;
+  box-shadow: var(--atlas-shadow-md);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.atlas-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.atlas-table th {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 2px solid var(--atlas-accent);
+  font-weight: 600;
+  color: var(--atlas-text);
+}
+
+.atlas-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.atlas-button {
+  background: var(--atlas-accent);
+  color: var(--atlas-text);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--atlas-font-family);
+}
+
+.atlas-button:hover {
+  background: var(--atlas-blue-start);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--atlas-shadow-lg);
+}
+
+.atlas-model-picker {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--atlas-accent);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--atlas-font-family);
+  font-weight: 500;
+  color: var(--atlas-text);
+  cursor: pointer;
+}
+
+.atlas-memory-indicator {
+  background: rgba(0, 255, 209, 0.3);
+  border: 1px solid var(--atlas-accent);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: var(--atlas-text);
+  margin-top: 0.5rem;
+  display: inline-block;
+}
