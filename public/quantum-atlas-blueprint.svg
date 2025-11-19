@@ -1,0 +1,39 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#007FFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00CFFF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="atlasGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00FFD1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#007FFF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bgGradient)"/>
+  
+  <!-- Atlas Globe -->
+  <circle cx="600" cy="300" r="150" fill="url(#atlasGradient)" opacity="0.8"/>
+  <circle cx="600" cy="300" r="120" fill="none" stroke="#00FFD1" stroke-width="3" opacity="0.6"/>
+  <circle cx="600" cy="300" r="90" fill="none" stroke="#00FFD1" stroke-width="2" opacity="0.4"/>
+  
+  <!-- Grid Lines -->
+  <line x1="600" y1="150" x2="600" y2="450" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/>
+  <line x1="450" y1="300" x2="750" y2="300" stroke="#FFFFFF" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Title -->
+  <text x="600" y="520" font-family="Inter, system-ui, sans-serif" font-size="56" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+    Quantum Atlas
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="570" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="500" fill="#00FFD1" text-anchor="middle">
+    Smart Routing Memory™
+  </text>
+  
+  <!-- Bottom text -->
+  <text x="600" y="620" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="400" fill="#E0F6FF" text-anchor="middle">
+    Payments-Only Blueprint • DRY_RUN Mode
+  </text>
+</svg>
