@@ -1,0 +1,6 @@
+# Quantum must not accept low-level protocol code. Route such changes to protocol/router repos.
+# Update owners to your actual team slugs if needed.
+
+/packages/**           @Ipayx-stellar @Copilot
+/src/protocol/**       @Ipayx-stellar @Copilot
+/src/providers/**      @Ipayx-stellar @Copilot
