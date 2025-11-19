@@ -12,3 +12,8 @@ export const logger = {
     if (import.meta.env.DEV) console.info(...args);
   }
 };
+
+// Export standalone log function for convenience
+export function log(...args: any[]) {
+  if (import.meta.env.DEV) console.log(...args);
+}

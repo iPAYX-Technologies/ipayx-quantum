@@ -143,8 +143,8 @@ export const getCybridQuote: GetQuoteFn = async (params: OnRampParams) => {
     const resp = await axios.get(`${quoteBaseURL}/onramp/quote`, {
       params: {
         fiatCurrency: params.fiatCurrency,
-        cryptoCurrency: params.cryptoCurrency,
-        amount: params.amount,
+        cryptoCurrency: params.cryptoAsset,
+        amount: params.fiatAmount,
         paymentMethod: params.paymentMethod,
       },
       headers: {
@@ -165,6 +165,10 @@ export const getCybridQuote: GetQuoteFn = async (params: OnRampParams) => {
       fee,
       eta,
       available,
+      exchangeRate: typeof data.exchangeRate === 'number' ? data.exchangeRate : undefined,
+      totalFees: typeof data.totalFees === 'number' ? data.totalFees : undefined,
+      estimatedTimeSec: typeof data.estimatedTimeSec === 'number' ? data.estimatedTimeSec : undefined,
+      metadata: data.metadata,
     };
   } catch {
     return computeFallbackQuote(params);
