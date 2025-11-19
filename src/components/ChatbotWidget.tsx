@@ -19,11 +19,68 @@ export default function ChatbotWidget() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Helper to check for CAD payment in message and trigger FINTRAC compliance if needed
+  const checkFintracCompliance = async (messageContent: string) => {
+    // More precise pattern matching for CAD amounts
+    // Matches: "$15000 CAD", "15,000 CAD", "CAD 15000", "CAD $15,000"
+    // Ensures amount and CAD are closely associated
+    const cadPattern = /(?:CAD[\s$]*|[$]\s*)([\d,]+(?:\.\d{2})?)\s*(?:CAD)?/gi;
+    const matches = messageContent.match(cadPattern);
+    
+    if (!matches) return;
+    
+    // Verify it's actually CAD (not just any number near the word CAD)
+    const isCad = /(?:^|\s|[$])([\d,]+(?:\.\d{2})?)\s*CAD|CAD\s*[$]?\s*([\d,]+(?:\.\d{2})?)/i.test(messageContent);
+    if (!isCad) return;
+    
+    // Extract numeric amount
+    const amountMatch = matches[0].match(/[\d,]+(?:\.\d{2})?/);
+    if (!amountMatch) return;
+    
+    const amountStr = amountMatch[0].replace(/,/g, '');
+    const amount = parseFloat(amountStr);
+    
+    if (amount < 10000) return;
+    
+    try {
+      console.log(`[FINTRAC] Detected CAD payment of ${amount}, checking compliance...`);
+      
+      // WARNING: This uses placeholder KYC data for demonstration/DRY_RUN only
+      // In production, replace with actual validated KYC data from user's account
+      // or implement proper KYC collection flow before triggering compliance
+      const { data, error } = await supabase.functions.invoke('fintrac-compliance', {
+        body: {
+          senderId: 'CHAT_USER',
+          amountCad: amount,
+          receiverCountry: 'CA',
+          kyc: {
+            sender_name: 'Chat User',
+            address: 'Provided via Chat',
+            dob: '1990-01-01'
+          }
+        }
+      });
+      
+      if (error) throw error;
+      
+      if (data.generated) {
+        console.log(`[FINTRAC] ECTR generated → ${data.file.path}`);
+        const previewLines = data.xmlPreview.split('\n').slice(0, 5).join('\n');
+        console.log(`Preview (first 5 lines):\n${previewLines}`);
+      } else if (data.reason === 'below_threshold') {
+        console.log(`[FINTRAC] Amount below threshold: ${data.amountCad} CAD`);
+      }
+    } catch (e) {
+      console.error('[FINTRAC] Compliance check error:', e);
+    }
+  };
+
   const sendMessage = async () => {
     if (!input.trim()) return;
     
     const userMsg = { role: "user", content: input };
     setMessages(prev => [...prev, userMsg]);
+    const userInput = input;
     setInput("");
     setLoading(true);
 
@@ -35,6 +92,9 @@ export default function ChatbotWidget() {
       if (error) throw error;
 
       setMessages(prev => [...prev, { role: "assistant", content: data.reply }]);
+      
+      // Check FINTRAC compliance after successful message
+      await checkFintracCompliance(userInput);
     } catch (e) {
       console.error(e);
       toast.error("Chatbot error", { description: "Please try again" });

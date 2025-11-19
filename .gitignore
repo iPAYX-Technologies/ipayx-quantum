@@ -65,6 +65,7 @@ temp/
 *.bak
 *.swp
 *.swo
+.tmp/
 
 # Test coverage
 coverage/
